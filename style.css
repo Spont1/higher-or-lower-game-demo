@@ -1,0 +1,74 @@
+@font-face {
+    font-family: 'NineBitRPG';
+    src: url('9BitRPG.tff') format('truetype')
+}
+
+body {
+    background: black;
+    color: aliceblue;
+    font-family: 'NineBitRPG', monospace;
+}
+
+/* MENU */
+#title {
+    margin-top: 7vh;
+    margin-bottom: 3vh;
+    display: flex;
+    justify-content: center;
+
+    font-size: 9vh;
+    text-align: center;
+}
+#menuButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 17vh;
+    margin-bottom: 20vh;
+    font-size: 3vh;
+}
+
+.buttons {
+    color: gray;
+    transition: 0.2s;
+    transform: scale(1);
+    
+}
+
+.buttons:hover {
+    flex-direction: row;
+    color: aliceblue;
+    transition: 0.2s;
+    transform: scale(1.05);
+}
+
+#github {
+    display: flex;
+    justify-content: center;
+    color: gray;
+
+    transform: scale(1);
+    transition: 0.2s;
+}
+
+
+
+/* GAME */
+
+
+#description {
+    text-align: center;
+    font-size: 3vh;
+}
+
+#score {
+    text-align: center;
+
+    font-size: 2vh;
+}
+
+.countries {
+    justify-content: center;
+}
