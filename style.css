@@ -58,17 +58,43 @@ body {
 /* GAME */
 
 
-#description {
+#objective {
     text-align: center;
     font-size: 3vh;
+
+    
+    margin: 10vh;
 }
 
 #score {
     text-align: center;
 
-    font-size: 2vh;
+    font-size: 6vh;
+
+    margin: 10vh;
 }
 
-.countries {
+#gameButtons {
     justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    display: flex;
+    font-size: 4vh;
+}
+
+#specificGameButton {
+    margin-left: 20%;
+    margin-right: 20%;
+
+    transform: scale(1);
+    transition: 0.2s;
+}
+
+#specificGameButton:hover {
+    margin-left: 20%;
+    margin-right: 20%;
+
+    transform: scale(1.2);
+    transition: 0.2s;
 }
