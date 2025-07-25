@@ -5,7 +5,7 @@ let soundTestButton = document.getElementById("click");
 let soundButton = document.getElementById("sound");
 let githubButton = document.getElementById("github");
 let menuButtons = document.getElementById('menuButtons');
-
+let scoreCount = 0;
 // Making the sound button work
 
 soundArray = ["SOUND: 0%","SOUND: 25%"
@@ -17,6 +17,31 @@ soundButton.addEventListener("click", function () {
     soundButton.textContent = soundArray[soundNextIndex]
 })
 
+
+score = generateInDOM('p', 'score', `SCORE: ${scoreCount}`)
+objective = generateInDOM('h2', 'objective', 'PICK A COUNTRY WITH HIGHER POPULATION');
+nextRoundButton = generateInDOM('h2', 'score', `Next round`);
+gameOver = generateInDOM('h2', 'objective', 'GAME OVER!')
+playAgainButton = generateInDOM('p', 'country', 'PLAY AGAIN?')
+
+playButton.addEventListener("click", function () {
+
+    clearBody();
+    document.body.appendChild(objective);
+    renderGame();
+})
+
+
+function generateInDOM(type, id, text) {
+
+const elementName = document.createElement(type)
+elementName.id = id;
+elementName.innerText = text;
+
+return elementName
+}
+
+
 function getCountry() { 
     const randInt = Math.floor(Math.random() * 31)
 
@@ -27,7 +52,31 @@ function getCountry() {
     return [country, pop];
 }
 
+function clearBody() {
+    const body = document.body
+
+    for (let i = body.children.length - 1; i>= 0; i--) {
+        let child = body.children[i];
+        child.remove()
+    }
+}
+
+function gameOverScreen() {
+        clearBody()
+        document.body.appendChild(gameOver)
+        score.innerText = `YOU MENAGED TO GET ${scoreCount} COUNTRIES RIGHT!`
+        document.body.appendChild(score)
+        document.body.appendChild(playAgainButton)
+
+        playAgainButton.addEventListener("click", function () {
+            clearBody()
+            scoreCount = 0;
+            renderGame()
+        })
+}
+
 function renderGame() {
+    score.innerText = `SCORE: ${scoreCount}`
     let firstCountry = getCountry();
     let secondCountry = getCountry();
     if (secondCountry === firstCountry) {
@@ -44,8 +93,12 @@ function renderGame() {
     let elementOne = document.createElement('p');
     let elementTwo = document.createElement('p');
 
+    let firstElementDiv = document.createElement('div')
+    let secondElementDiv = document.createElement('div')
 
     selectButtons.id = 'gameButtons';
+    firstElementDiv.id = 'country';
+    secondElementDiv.id = 'country';
 
     elementOne.textContent = firstCountryName;
     elementOne.id = 'specificGameButton';
@@ -53,63 +106,85 @@ function renderGame() {
     elementTwo.textContent = secondCountryName;
     elementTwo.id = 'specificGameButton';
 
+    document.body.appendChild(objective);
+    document.body.appendChild(score)
+
     document.body.appendChild(selectButtons);
-    selectButtons.appendChild(elementOne);
-    selectButtons.appendChild(elementTwo);
+
+    selectButtons.appendChild(firstElementDiv);
+    selectButtons.appendChild(secondElementDiv);
+
+    firstElementDiv.appendChild(elementOne);
+    secondElementDiv.appendChild(elementTwo);
 
     console.log('GAME RENDERED')
 
+    
+    //todo: make countryClick function instead of this abomination
+
     elementOne.addEventListener("click", function () {
         const keyOne = elementOne.textContent;
-        const valueOne = (Number(data[keyOne]))
-
         const keyTwo = elementTwo.textContent;
-        const valueTwo = (Number(data[keyTwo]))
+        const firstCountryPopValue = (Number(data[keyOne]));
+        const secondCountryPopValue = (Number(data[keyTwo]));
 
-        console.log(`First country: ${keyOne}, ${valueOne}`)
-        console.log(`Second country: ${keyTwo}, ${valueTwo}`)
+        const firstPop = document.createElement('p');
+        firstPop.textContent = (`Population: ${firstCountryPopValue}`)
 
-        /* TODO
+        const secondPop = document.createElement('p');
+        secondPop.textContent = (`Population: ${secondCountryPopValue}`)
 
-        if (valueOne > valueTwo) {
+        console.log(`First country: ${keyOne}, ${firstCountryPopValue}`)
+        console.log(`Second country: ${keyTwo}, ${secondCountryPopValue}`)
+        if (firstCountryPopValue > secondCountryPopValue) {
+            scoreCount += 1
+            score.innerText = `SCORE: ${scoreCount}`;
 
+            firstElementDiv.appendChild(firstPop);
+            secondElementDiv.appendChild(secondPop);
+
+            document.body.appendChild(nextRoundButton);
+
+        } else {
+            gameOverScreen();
         }
-        */
         })
 
+    elementTwo.addEventListener("click", function () {
+        const keyOne = elementOne.textContent;
+        const keyTwo = elementTwo.textContent;
+        const firstCountryPopValue = (Number(data[keyOne]));
+        const secondCountryPopValue = (Number(data[keyTwo]));
+
+        const firstPop = document.createElement('p');
+        firstPop.textContent = (`Population: ${firstCountryPopValue}`)
+
+        const secondPop = document.createElement('p');
+        secondPop.textContent = (`Population: ${secondCountryPopValue}`)
+
+        console.log(`First country: ${keyOne}, ${firstCountryPopValue}`)
+        console.log(`Second country: ${keyTwo}, ${secondCountryPopValue}`)
+        if (firstCountryPopValue < secondCountryPopValue) {
+            scoreCount += 1
+            score.innerText = `SCORE: ${scoreCount}`;
+
+            firstElementDiv.appendChild(firstPop);
+            secondElementDiv.appendChild(secondPop);
+
+            document.body.appendChild(nextRoundButton);
+
+        } else {
+            gameOverScreen();
+        }
+        })
+
+    nextRoundButton.addEventListener("click", function () {
+        clearBody();
+        renderGame()
+    })
 
 }
 
-
-
-objective = generateInDOM('h2', 'objective', 'PICK A COUNTRY WITH HIGHER POPULATION');
-scoreCount = 0;
-score = generateInDOM('h2', 'score', `SCORE: ${scoreCount}`);
-
-playButton.addEventListener("click", function () {
-
-    playButton.remove();
-    soundButton.remove();
-    soundTestButton.remove();
-    menuTitle.remove();
-    githubButton.remove();
-    menuButtons.remove();
-    document.body.appendChild(objective);
-    document.body.appendChild(score);
-    renderGame();
-})
-
-
-function generateInDOM(type, id, text) {
-
-const elementName = document.createElement(type)
-elementName.id = id;
-elementName.innerText = text;
-
-return elementName
-}
-
-// DATA (I want the project to be 100% client side)
 
 const data = {
     'Poland': '3800000',
@@ -143,5 +218,37 @@ const data = {
     "Kenya": "55300000",
     "South Korea": "51700000",
     "Spain": "48000000",
-    "Canada": "39300000"
+    "Canada": "39300000",
+    'Sweden': '10500000',
+    'Finland': '5600000',
+    'Argentina': '46000000',
+    'Colombia': '52000000',
+    'Chile': '19500000',
+    'Peru': '34000000',
+    'Venezuela': '29000000',
+    'Malaysia': '34000000',
+    'Saudi Arabia': '37000000',
+    'Iraq': '44000000',
+    'Afghanistan': '42000000',
+    'Uzbekistan': '36000000',
+    'Morocco': '38000000',
+    'Algeria': '46000000',
+    'Sudan': '48000000',
+    'Uganda': '47000000',
+    'Ukraine': '37000000',
+    'Kazakhstan': '20000000',
+    'Nepal': '31000000',
+    'Ghana': '35000000',
+    'Yemen': '34000000',
+    'Angola': '37000000',
+    'Mozambique': '34000000',
+    'Cameroon': '29000000',
+    'Niger': '27000000',
+    'Mali': '23000000',
+    'Zambia': '21000000',
+    'Senegal': '18000000',
+    'Zimbabwe': '17000000',
+    'Guatemala': '19000000',
+    'Honduras': '11000000',
+    'Paraguay': '7500000'
 }

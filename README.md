@@ -2,6 +2,6 @@
 
 ## A simple game demo based on the popular browser game - The Higher Lower game. 
 
-This is a fun project i made in order to understand how the higher lower game was made (https://www.higherlowergame.com/)
+You can play it here: https://spont1.github.io/higher-or-lower-game-demo/
 
-Higher or lower was made only using HTML, CSS and JS. 
+Higher or lower was made with HTML, CSS and JS. 

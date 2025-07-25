@@ -68,8 +68,7 @@ body {
 
 #score {
     text-align: center;
-
-    font-size: 6vh;
+    font-size: 3vh;
 
     margin: 10vh;
 }
@@ -83,7 +82,15 @@ body {
     font-size: 4vh;
 }
 
-#specificGameButton {
+#country {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: gray;
+    font-size: 4vh;
+
+
+    margin-bottom: 5%;
     margin-left: 20%;
     margin-right: 20%;
 
@@ -91,10 +98,19 @@ body {
     transition: 0.2s;
 }
 
-#specificGameButton:hover {
+#country:hover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: aliceblue;
+    font-size: 4vh;
+
+
+    margin-bottom: 5%;
     margin-left: 20%;
     margin-right: 20%;
 
-    transform: scale(1.2);
+    transform: scale(1.1);
     transition: 0.2s;
 }
+
