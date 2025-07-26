@@ -87,7 +87,7 @@ body {
     align-items: center;
     text-align: center;
     color: gray;
-    font-size: 4vh;
+    font-size: 3vh;
 
 
     margin-bottom: 5%;
@@ -98,12 +98,17 @@ body {
     transition: 0.2s;
 }
 
+#populationValue {
+    display: block;
+    white-space: nowrap;
+}
+
 #country:hover {
     justify-content: center;
     align-items: center;
     text-align: center;
     color: aliceblue;
-    font-size: 4vh;
+    font-size: 3vh;
 
 
     margin-bottom: 5%;
@@ -114,3 +119,24 @@ body {
     transition: 0.2s;
 }
 
+#nextRound {
+    text-align: center;
+    font-size: 3vh;
+    margin: 8vh;
+    
+    color: rgb(184, 184, 184);
+
+    transform: scale(1);
+    transition: 0.2s;
+}
+
+#nextRound:hover {
+    text-align: center;
+    font-size: 3vh;
+    margin: 8vh;
+    
+    color: aliceblue;
+
+    transform: scale(1.1);
+    transition: 0.2s;
+}
